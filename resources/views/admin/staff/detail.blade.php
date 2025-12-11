@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Str; @endphp
 <!doctype html>
 <html lang="en">
   <head>

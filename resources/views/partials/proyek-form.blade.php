@@ -121,8 +121,19 @@
                 </div>
 
                 <div class="col-md-12">
-                  <button type="submit" class="btn btn-primary">Simpan</button>
-                  <a href="{{ route($route . '.index') }}" class="btn btn-secondary">Batal</a>
+                  <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <a href="{{ route($route . '.index') }}" class="btn btn-outline-secondary">
+                      <i data-feather="arrow-left" class="me-1"></i> Kembali
+                    </a>
+                    <div class="d-flex gap-2">
+                      <button type="reset" class="btn btn-outline-warning">
+                        <i data-feather="rotate-ccw" class="me-1"></i> Reset
+                      </button>
+                      <button type="submit" class="btn btn-primary">
+                        <i data-feather="save" class="me-1"></i> Simpan
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </form>

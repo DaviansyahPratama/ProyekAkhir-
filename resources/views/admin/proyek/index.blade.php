@@ -26,11 +26,13 @@
           <div class="card-body">
             <!-- Search and Filter -->
             <form method="GET" action="{{ route('admin.proyek.index') }}" class="mb-4">
-              <div class="row g-3">
+              <div class="row g-3 align-items-end">
                 <div class="col-md-3">
+                  <label class="form-label small text-muted">Cari</label>
                   <input type="text" name="search" class="form-control" placeholder="Search..." value="{{ request('search') }}">
                 </div>
                 <div class="col-md-2">
+                  <label class="form-label small text-muted">Status</label>
                   <select name="status" class="form-control">
                     <option value="">All Status</option>
                     <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
@@ -40,6 +42,7 @@
                   </select>
                 </div>
                 <div class="col-md-3">
+                  <label class="form-label small text-muted">Staff</label>
                   <select name="staff_id" class="form-control">
                     <option value="">All Staff</option>
                     @foreach($staffList as $staff)
@@ -49,11 +52,15 @@
                     @endforeach
                   </select>
                 </div>
-                <div class="col-md-2">
-                  <button type="submit" class="btn btn-primary w-100">Filter</button>
-                </div>
-                <div class="col-md-2">
-                  <a href="{{ route('admin.proyek.index') }}" class="btn btn-secondary w-100">Reset</a>
+                <div class="col-md-4">
+                  <div class="d-flex justify-content-end gap-2">
+                    <a href="{{ route('admin.proyek.index') }}" class="btn btn-outline-secondary">
+                      Reset
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                      Filter
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>

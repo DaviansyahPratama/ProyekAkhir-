@@ -28,6 +28,15 @@
 <!-- [Mobile Media Block end] -->
 <div class="ms-auto">
   <ul class="inline-flex *:min-h-header-height *:inline-flex *:items-center">
+    @auth
+    @if(Auth::user()->isStaff())
+    <li class="pc-h-item max-sm:hidden">
+      <a href="{{ route('staff.proyek.create') }}" class="btn btn-primary btn-sm">
+        <i data-feather="plus" class="me-1"></i> Tambah Proyek
+      </a>
+    </li>
+    @endif
+    @endauth
     <li class="dropdown pc-h-item">
       <a class="pc-head-link dropdown-toggle me-0" data-pc-toggle="dropdown" href="#" role="button"
         aria-haspopup="false" aria-expanded="false">

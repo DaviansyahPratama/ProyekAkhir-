@@ -74,14 +74,13 @@ class ProyekController extends Controller
             });
         }
 
+        // Hanya ambil count; hindari eager load dengan limit yang memicu SQL variabel (laravel_row) di MySQL lama
         $staffs = $query->withCount([
             'proyeks as proyeks_completed_count' => function($q) {
                 $q->where('status', 'completed');
             },
             'proyeks as proyeks_total_count'
-        ])->with(['proyeks' => function($q) {
-            $q->latest()->take(5);
-        }])->paginate(10)->withQueryString();
+        ])->paginate(10)->withQueryString();
 
         return view('admin.staff.monitoring', compact('staffs'));
     }

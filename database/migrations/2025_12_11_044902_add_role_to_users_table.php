@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->enum('role', ['admin', 'staff', 'guest'])->default('guest')->after('password');
-        });
+        // Kolom role sudah dibuat di migration awal create_users_table.
+        // Tidak perlu menambah apa-apa di sini untuk kompatibilitas MySQL/MariaDB lama.
     }
 
     /**
@@ -21,8 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
-        });
+        // Tidak ada perubahan yang perlu dibalik.
     }
 };

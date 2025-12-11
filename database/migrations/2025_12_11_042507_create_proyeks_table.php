@@ -24,7 +24,8 @@ return new class extends Migration
             $table->integer('progress')->default(0);
             $table->text('catatan')->nullable();
             $table->string('file_dokumen')->nullable();
-            $table->json('file_lampiran')->nullable(); // untuk multiple files
+            // Simpan lampiran sebagai teks agar kompatibel dengan MySQL/MariaDB lama yang belum mendukung tipe JSON
+            $table->text('file_lampiran')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null'); // staff yang mengelola
             $table->timestamps();
         });

@@ -2,13 +2,13 @@
 <html lang="en" @@bodySetup>
 
 <head>
-  <title>Datta Able Tailwind Dashboard Template</title>
+  <title>DD Track Tailwind Dashboard Template</title>
   <!-- [Meta] -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="description"
-    content=" Download Datta Able Tailwind CSS Template, a premium Tailwind CSS Admin Template developed by CodedThemes." />
+    content="Download DD Track Tailwind CSS Template, a premium Tailwind CSS Admin Template developed by CodedThemes." />
   <meta name="keywords"
     content="tailwind admin template, Dashboard UI Kit, Dashboard Template, Backend Panel, react dashboard, angular dashboard" />
   <meta name="author" content="CodedThemes" />
@@ -93,7 +93,7 @@
         <div class="wow animate__fadeInUp" data-wow-delay="0.3s">
           <div class="sm:w-8/12 mx-auto">
             <p class="text-white/80 text-[14px] sm:text-[16px] mb-0">
-              Datta able is the one of the Featured admin dashboard template in CodedThemes, with over 25K+ global users across various technologies.
+              DD Track is one of the featured admin dashboard templates in CodedThemes, with over 25K+ global users across various technologies.
             </p>
           </div>
         </div>

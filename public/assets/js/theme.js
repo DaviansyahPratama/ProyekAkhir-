@@ -1,7 +1,7 @@
 /**
 =========================================================================
 =========================================================================
-Template Name: Datta Able - Tailwind Admin Template
+Template Name: DD Track - Tailwind Admin Template
 Author: CodedThemes
 Support: https://codedthemes.support-hub.io/
 File: themes.js

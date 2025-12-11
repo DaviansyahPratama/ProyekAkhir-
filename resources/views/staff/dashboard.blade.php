@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Str; @endphp
 <!doctype html>
 <html lang="en">
   <!-- [Head] start -->
@@ -90,39 +91,47 @@
                 <h5>My Recent Proyeks</h5>
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>Judul</th>
-                        <th>Mahasiswa</th>
-                        <th>Status</th>
-                        <th>Progress</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @forelse($myRecentProyeks as $proyek)
-                        <tr>
-                          <td>{{ Str::limit($proyek->judul, 30) }}</td>
-                          <td>{{ $proyek->mahasiswa_nama }}</td>
-                          <td>
-                            <span class="badge bg-{{ $proyek->status_color }}-500">
-                              {{ ucfirst(str_replace('_', ' ', $proyek->status)) }}
+                <div class="row g-3">
+                  @forelse($myRecentProyeks as $proyek)
+                    <div class="col-12 col-md-6 col-lg-4">
+                      <div class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+                          <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                              <h6 class="mb-1">{{ Str::limit($proyek->judul, 60) }}</h6>
+                              <p class="text-muted mb-0 small">{{ $proyek->mahasiswa_nama }}</p>
+                            </div>
+                            <span class="badge bg-{{ $proyek->status_color }}-500 text-white text-capitalize">
+                              {{ str_replace('_', ' ', $proyek->status) }}
                             </span>
-                          </td>
-                          <td>{{ $proyek->progress }}%</td>
-                          <td>
-                            <a href="{{ route('staff.proyek.show', $proyek) }}" class="btn btn-sm btn-primary">View</a>
-                          </td>
-                        </tr>
-                      @empty
-                        <tr>
-                          <td colspan="5" class="text-center">No projects found</td>
-                        </tr>
-                      @endforelse
-                    </tbody>
-                  </table>
+                          </div>
+
+                          <div class="mb-2">
+                            <span class="small text-muted">Progress</span>
+                            <div class="d-flex justify-content-between align-items-center">
+                              <div class="progress flex-grow-1 me-2" style="height: 8px;">
+                                <div class="progress-bar bg-{{ $proyek->status_color }}-500" role="progressbar"
+                                  style="width: {{ $proyek->progress }}%;" aria-valuenow="{{ $proyek->progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              <span class="small fw-semibold">{{ $proyek->progress }}%</span>
+                            </div>
+                          </div>
+
+                          <div class="mt-auto">
+                            <a href="{{ route('staff.proyek.show', $proyek) }}" class="btn btn-sm btn-primary w-100">
+                              <i data-feather="eye" class="me-1"></i> Lihat Detail
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  @empty
+                    <div class="col-12">
+                      <div class="alert alert-info text-center mb-0">
+                        No projects found
+                      </div>
+                    </div>
+                  @endforelse
                 </div>
               </div>
             </div>
