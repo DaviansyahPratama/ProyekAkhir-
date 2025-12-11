@@ -101,6 +101,49 @@
             </div>
           </div>
           <div class="col-span-12 xl:col-span-6 md:col-span-6">
+            @php
+              $totalAll = max($totalProyeks, 1);
+              $pendingPct = round(($proyeksPending / $totalAll) * 100);
+              $onProgressPct = round(($proyeksOnProgress / $totalAll) * 100);
+              $completedPct = round(($proyeksCompleted / $totalAll) * 100);
+            @endphp
+            <div class="card">
+              <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>Ringkasan Status Proyek</h5>
+                <span class="text-muted small">Total: {{ $totalProyeks }}</span>
+              </div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-muted">Pending</span>
+                    <span class="fw-semibold">{{ $proyeksPending }} ({{ $pendingPct }}%)</span>
+                  </div>
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-warning-500" role="progressbar" style="width: {{ $pendingPct }}%;" aria-valuenow="{{ $pendingPct }}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-muted">On Progress</span>
+                    <span class="fw-semibold">{{ $proyeksOnProgress }} ({{ $onProgressPct }}%)</span>
+                  </div>
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-info-500" role="progressbar" style="width: {{ $onProgressPct }}%;" aria-valuenow="{{ $onProgressPct }}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-muted">Completed</span>
+                    <span class="fw-semibold">{{ $proyeksCompleted }} ({{ $completedPct }}%)</span>
+                  </div>
+                  <div class="progress" style="height: 8px;">
+                    <div class="progress-bar bg-success-500" role="progressbar" style="width: {{ $completedPct }}%;" aria-valuenow="{{ $completedPct }}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-span-12 xl:col-span-12 md:col-span-12">
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Recent Proyeks</h5>
@@ -148,7 +191,7 @@
               </div>
             </div>
           </div>
-          <div class="col-span-12 xl:col-span-6 md:col-span-6">
+          <div class="col-span-12 xl:col-span-12 md:col-span-12">
             <div class="card">
               <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Quick Actions</h5>
