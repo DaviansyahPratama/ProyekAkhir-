@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" @@bodySetup>
+<html lang="en">
   <!-- [Head] start -->
 
   <head>

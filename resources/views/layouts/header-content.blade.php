@@ -70,10 +70,20 @@
           <i class="ti ti-lock"></i>
           <span>Lock Screen</span>
         </a>
-        <a href="#!" class="dropdown-item">
-          <i class="ti ti-power"></i>
-          <span>Logout</span>
+        @auth
+        <form method="POST" action="{{ route('logout') }}" class="w-100">
+          @csrf
+          <button type="submit" class="dropdown-item w-100 text-start border-0 bg-transparent p-2 hover:bg-danger-50 hover:text-danger-500">
+            <i class="ti ti-power me-2"></i>
+            <span>Logout</span>
+          </button>
+        </form>
+        @else
+        <a href="{{ route('login') }}" class="dropdown-item">
+          <i class="ti ti-login me-2"></i>
+          <span>Login</span>
         </a>
+        @endauth
       </div>
     </li>
     <li class="dropdown pc-h-item">
@@ -94,7 +104,7 @@
             <div class="card-body">
               <div class="flex gap-4">
                 <div class="shrink-0">
-                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-1.jpg" alt="Generic placeholder image" />
+                  <img class="img-radius w-12 h-12 rounded-0" src="{{ asset('assets/images/user/avatar-1.jpg') }}" alt="Generic placeholder image" />
                 </div>
                 <div class="grow">
                   <span class="float-end text-sm text-muted">2 min ago</span>
@@ -112,7 +122,7 @@
             <div class="card-body">
               <div class="flex gap-4">
                 <div class="shrink-0">
-                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-2.jpg" alt="Generic placeholder image" />
+                  <img class="img-radius w-12 h-12 rounded-0" src="{{ asset('assets/images/user/avatar-2.jpg') }}" alt="Generic placeholder image" />
                 </div>
                 <div class="grow">
                   <span class="float-end text-sm text-muted">1 hour ago</span>
@@ -127,7 +137,7 @@
             <div class="card-body">
               <div class="flex gap-4">
                 <div class="shrink-0">
-                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-3.jpg" alt="Generic placeholder image" />
+                  <img class="img-radius w-12 h-12 rounded-0" src="{{ asset('assets/images/user/avatar-3.jpg') }}" alt="Generic placeholder image" />
                 </div>
                 <div class="grow ms-3">
                   <span class="float-end text-sm text-muted">2 hour ago</span>
@@ -145,7 +155,7 @@
             <div class="card-body">
               <div class="flex gap-4">
                 <div class="shrink-0">
-                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-4.jpg" alt="Generic placeholder image" />
+                  <img class="img-radius w-12 h-12 rounded-0" src="{{ asset('assets/images/user/avatar-4.jpg') }}" alt="Generic placeholder image" />
                 </div>
                 <div class="grow ms-3">
                   <span class="float-end text-sm text-muted">12 hour ago</span>
@@ -164,7 +174,7 @@
             <div class="card-body">
               <div class="flex gap-4">
                 <div class="shrink-0">
-                  <img class="img-radius w-12 h-12 rounded-0" src="../assets/images/user/avatar-5.jpg" alt="Generic placeholder image" />
+                  <img class="img-radius w-12 h-12 rounded-0" src="{{ asset('assets/images/user/avatar-5.jpg') }}" alt="Generic placeholder image" />
                 </div>
                 <div class="grow ms-3">
                   <span class="float-end text-sm text-muted">5 hour ago</span>
@@ -186,6 +196,7 @@
         </div>
       </div>
     </li>
+    @auth
     <li class="dropdown pc-h-item header-user-profile">
       <a class="pc-head-link dropdown-toggle arrow-none me-0" data-pc-toggle="dropdown" href="#" role="button"
         aria-haspopup="false" data-pc-auto-close="outside" aria-expanded="false">
@@ -195,51 +206,46 @@
         <div class="dropdown-header flex items-center justify-between py-4 px-5 bg-primary-500">
           <div class="flex mb-1 items-center">
             <div class="shrink-0">
-              <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="w-10 rounded-full" />
+              <img src="{{ asset('assets/images/user/avatar-2.jpg') }}" alt="user-image" class="w-10 rounded-full" />
             </div>
             <div class="grow ms-3">
-              <h6 class="mb-1 text-white">Carson Darrin 🖖</h6>
-              <span class="text-white">carson.darrin@company.io</span>
+              <h6 class="mb-1 text-white">{{ Auth::user()->name }}</h6>
+              <span class="text-white">{{ Auth::user()->email }}</span>
             </div>
           </div>
         </div>
         <div class="dropdown-body py-4 px-5">
           <div class="profile-notification-scroll position-relative" style="max-height: calc(100vh - 225px)">
-            <a href="#" class="dropdown-item">
+            <a href="{{ route('dashboard') }}" class="dropdown-item">
               <span>
                 <svg class="pc-icon text-muted me-2 inline-block">
                   <use xlink:href="#custom-setting-outline"></use>
                 </svg>
-                <span>Settings</span>
-              </span>
-            </a>
-            <a href="#" class="dropdown-item">
-              <span>
-                <svg class="pc-icon text-muted me-2 inline-block">
-                  <use xlink:href="#custom-share-bold"></use>
-                </svg>
-                <span>Share</span>
-              </span>
-            </a>
-            <a href="#" class="dropdown-item">
-              <span>
-                <svg class="pc-icon text-muted me-2 inline-block">
-                  <use xlink:href="#custom-lock-outline"></use>
-                </svg>
-                <span>Change Password</span>
+                <span>Dashboard</span>
               </span>
             </a>
             <div class="grid my-3">
-              <button class="btn btn-primary flex items-center justify-center">
-                <svg class="pc-icon me-2 w-[22px] h-[22px]">
-                  <use xlink:href="#custom-logout-1-outline"></use>
-                </svg>
-                Logout
-              </button>
+              <form method="POST" action="{{ route('logout') }}" class="w-100">
+                @csrf
+                <button type="submit" class="btn btn-danger flex items-center justify-center w-100">
+                  <svg class="pc-icon me-2 w-[22px] h-[22px]">
+                    <use xlink:href="#custom-logout-1-outline"></use>
+                  </svg>
+                  Logout
+                </button>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </li>
+    @else
+    <li class="pc-h-item">
+      <a href="{{ route('login') }}" class="pc-head-link">
+        <i data-feather="log-in"></i>
+        <span class="ms-2">Login</span>
+      </a>
+    </li>
+    @endauth
   </ul>
 </div>
