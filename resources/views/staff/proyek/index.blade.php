@@ -21,7 +21,7 @@
         <div class="card">
           <div class="card-header d-flex justify-content-between align-items-center">
             <h5>Proyek Saya</h5>
-            <a href="{{ route('staff.proyek.create') }}" class="btn btn-primary">
+            <a href="{{ route('staff.proyek.create') }}" class="btn btn-primary btn-upload-strong">
               <i data-feather="plus"></i> Tambah Proyek
             </a>
           </div>

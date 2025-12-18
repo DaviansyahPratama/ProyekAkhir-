@@ -61,16 +61,9 @@
                 </div>
 
                 <div class="col-md-6">
-                  <label class="form-label">Status *</label>
-                  <select name="status" class="form-control @error('status') is-invalid @enderror" required>
-                    <option value="pending" {{ old('status', $proyek->status) == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="on_progress" {{ old('status', $proyek->status) == 'on_progress' ? 'selected' : '' }}>On Progress</option>
-                    <option value="completed" {{ old('status', $proyek->status) == 'completed' ? 'selected' : '' }}>Completed</option>
-                    <option value="rejected" {{ old('status', $proyek->status) == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                  </select>
-                  @error('status')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                  <label class="form-label">Status Proyek</label>
+                  <input type="text" class="form-control" value="{{ ucfirst(str_replace('_', ' ', $proyek->status)) }} (diatur oleh admin)" disabled>
+                  <small class="text-muted">Perubahan status hanya dapat dilakukan oleh admin.</small>
                 </div>
 
                 <div class="col-md-6">
@@ -91,10 +84,8 @@
 
                 <div class="col-md-6">
                   <label class="form-label">Progress (%)</label>
-                  <input type="number" name="progress" class="form-control @error('progress') is-invalid @enderror" value="{{ old('progress', $proyek->progress) }}" min="0" max="100">
-                  @error('progress')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                  <input type="text" class="form-control" value="{{ $proyek->progress }}% (diupdate oleh admin)" disabled>
+                  <small class="text-muted">Mahasiswa tidak dapat mengubah nilai progress.</small>
                 </div>
 
                 <div class="col-md-12">

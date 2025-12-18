@@ -21,9 +21,12 @@ class RoleMiddleware
         }
 
         $user = Auth::user();
-        
+
         if (!in_array($user->role, $roles)) {
-            abort(403, 'Unauthorized access.');
+            // Redirect ke halaman unauthorized dengan pesan yang sopan
+            return redirect()
+                ->route('unauthorized')
+                ->with('error', 'Anda tidak memiliki hak akses untuk mengakses halaman tersebut.');
         }
 
         return $next($request);

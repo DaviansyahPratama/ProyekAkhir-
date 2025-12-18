@@ -58,10 +58,9 @@ class ProyekController extends Controller
             'mahasiswa_nim' => 'required|string|max:20',
             'mahasiswa_nama' => 'required|string|max:255',
             'dosen_pembimbing' => 'required|string|max:255',
-            'status' => 'required|in:pending,on_progress,completed,rejected',
             'tanggal_mulai' => 'nullable|date',
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
-            'progress' => 'nullable|integer|min:0|max:100',
+            // status & progress ditentukan oleh admin, bukan mahasiswa
             'catatan' => 'nullable|string',
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
             'file_lampiran.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
@@ -69,6 +68,10 @@ class ProyekController extends Controller
 
         // Assign to current staff
         $validated['user_id'] = Auth::id();
+
+        // Default progress & status: mahasiswa tidak bisa menentukan sendiri
+        $validated['status'] = 'pending';
+        $validated['progress'] = 0;
 
         // Handle single file upload
         if ($request->hasFile('file_dokumen')) {
@@ -132,10 +135,9 @@ class ProyekController extends Controller
             'mahasiswa_nim' => 'required|string|max:20',
             'mahasiswa_nama' => 'required|string|max:255',
             'dosen_pembimbing' => 'required|string|max:255',
-            'status' => 'required|in:pending,on_progress,completed,rejected',
             'tanggal_mulai' => 'nullable|date',
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
-            'progress' => 'nullable|integer|min:0|max:100',
+            // status & progress hanya bisa diubah admin
             'catatan' => 'nullable|string',
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
             'file_lampiran.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
@@ -162,6 +164,9 @@ class ProyekController extends Controller
             }
             $validated['file_lampiran'] = $files;
         }
+
+        // Pastikan status & progress tidak berubah dari sisi mahasiswa
+        unset($validated['status'], $validated['progress']);
 
         $proyek->update($validated);
 

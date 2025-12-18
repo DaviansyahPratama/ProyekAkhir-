@@ -51,11 +51,68 @@ class ProyekController extends Controller
 
     /**
      * Display the specified resource.
-     * Admin can only view, cannot edit
      */
     public function show(Proyek $proyek)
     {
         return view('admin.proyek.show', compact('proyek'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     * Hanya admin yang boleh mengubah status & progress
+     */
+    public function edit(Proyek $proyek)
+    {
+        return view('admin.proyek.edit', compact('proyek'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Proyek $proyek)
+    {
+        $validated = $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'mahasiswa_nim' => 'required|string|max:20',
+            'mahasiswa_nama' => 'required|string|max:255',
+            'dosen_pembimbing' => 'required|string|max:255',
+            'status' => 'required|in:pending,on_progress,completed,rejected',
+            'tanggal_mulai' => 'nullable|date',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
+            'progress' => 'nullable|integer|min:0|max:100',
+            'catatan' => 'nullable|string',
+            'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
+            'file_lampiran.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
+        ]);
+
+        // Handle single file upload
+        if ($request->hasFile('file_dokumen')) {
+            if ($proyek->file_dokumen) {
+                \Storage::disk('public')->delete($proyek->file_dokumen);
+            }
+            $validated['file_dokumen'] = $request->file('file_dokumen')->store('proyeks/dokumen', 'public');
+        }
+
+        // Handle multiple file uploads
+        if ($request->hasFile('file_lampiran')) {
+            if ($proyek->file_lampiran) {
+                foreach ($proyek->file_lampiran as $file) {
+                    \Storage::disk('public')->delete($file);
+                }
+            }
+            $files = [];
+            foreach ($request->file('file_lampiran') as $file) {
+                $files[] = $file->store('proyeks/lampiran', 'public');
+            }
+            $validated['file_lampiran'] = $files;
+        }
+
+        $proyek->update($validated);
+
+        return redirect()
+            ->route('admin.proyek.show', $proyek)
+            ->with('success', 'Proyek berhasil diperbarui oleh admin.');
     }
 
     /**

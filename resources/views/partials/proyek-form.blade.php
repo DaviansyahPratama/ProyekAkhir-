@@ -60,16 +60,9 @@
                 </div>
 
                 <div class="col-md-6">
-                  <label class="form-label">Status *</label>
-                  <select name="status" class="form-control @error('status') is-invalid @enderror" required>
-                    <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="on_progress" {{ old('status') == 'on_progress' ? 'selected' : '' }}>On Progress</option>
-                    <option value="completed" {{ old('status') == 'completed' ? 'selected' : '' }}>Completed</option>
-                    <option value="rejected" {{ old('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                  </select>
-                  @error('status')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                  <label class="form-label">Status Proyek</label>
+                  <input type="text" class="form-control" value="Pending (ditentukan oleh admin)" disabled>
+                  <small class="text-muted">Status awal proyek akan diatur oleh admin setelah peninjauan.</small>
                 </div>
 
                 <div class="col-md-6">
@@ -90,10 +83,8 @@
 
                 <div class="col-md-6">
                   <label class="form-label">Progress (%)</label>
-                  <input type="number" name="progress" class="form-control @error('progress') is-invalid @enderror" value="{{ old('progress', 0) }}" min="0" max="100">
-                  @error('progress')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
+                  <input type="text" class="form-control" value="0% (akan diupdate oleh admin)" disabled>
+                  <small class="text-muted">Mahasiswa dapat melihat perkembangan, namun angka progress diupdate oleh admin.</small>
                 </div>
 
                 <div class="col-md-12">
@@ -129,7 +120,7 @@
                       <button type="reset" class="btn btn-outline-warning">
                         <i data-feather="rotate-ccw" class="me-1"></i> Reset
                       </button>
-                      <button type="submit" class="btn btn-primary">
+                      <button type="submit" class="btn btn-primary btn-upload-strong">
                         <i data-feather="save" class="me-1"></i> Simpan
                       </button>
                     </div>

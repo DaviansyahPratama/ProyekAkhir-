@@ -26,7 +26,7 @@
         <!-- [ Main Content ] start -->
         <div class="grid grid-cols-12 gap-x-6">
           <div class="col-span-12 xl:col-span-3 md:col-span-6">
-            <div class="card">
+            <div class="card card-stat">
               <div class="card-header !pb-0 !border-b-0">
                 <h5>My Proyeks</h5>
               </div>
@@ -41,7 +41,7 @@
             </div>
           </div>
           <div class="col-span-12 xl:col-span-3 md:col-span-6">
-            <div class="card">
+            <div class="card card-stat">
               <div class="card-header !pb-0 !border-b-0">
                 <h5>Pending</h5>
               </div>
@@ -56,7 +56,7 @@
             </div>
           </div>
           <div class="col-span-12 xl:col-span-3 md:col-span-6">
-            <div class="card">
+            <div class="card card-stat">
               <div class="card-header !pb-0 !border-b-0">
                 <h5>On Progress</h5>
               </div>

@@ -27,11 +27,18 @@ Route::get('/skip-login', [AuthController::class, 'skipLogin'])->name('skip-logi
 // Dashboard - Public or Authenticated based on login status
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+// Unauthorized access page
+Route::get('/unauthorized', function () {
+    return view('errors.unauthorized');
+})->name('unauthorized');
+
 // Admin routes
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    // Proyek management (view only - no create/edit/delete)
+    // Proyek management
     Route::get('proyek', [AdminProyekController::class, 'index'])->name('proyek.index');
     Route::get('proyek/{proyek}', [AdminProyekController::class, 'show'])->name('proyek.show');
+    Route::get('proyek/{proyek}/edit', [AdminProyekController::class, 'edit'])->name('proyek.edit');
+    Route::put('proyek/{proyek}', [AdminProyekController::class, 'update'])->name('proyek.update');
     
     // Staff monitoring
     Route::get('staff', [AdminProyekController::class, 'monitoringStaff'])->name('staff.monitoring');
