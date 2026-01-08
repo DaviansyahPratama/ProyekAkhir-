@@ -38,7 +38,8 @@
 
                 <div class="col-md-6">
                   <label class="form-label">NIM Mahasiswa *</label>
-                  <input type="text" name="mahasiswa_nim" class="form-control @error('mahasiswa_nim') is-invalid @enderror" value="{{ old('mahasiswa_nim', $proyek->mahasiswa_nim) }}" required>
+                  <input type="text" name="mahasiswa_nim" class="form-control @error('mahasiswa_nim') is-invalid @enderror" value="{{ old('mahasiswa_nim', $proyek->mahasiswa_nim) }}" maxlength="10" pattern="[0-9]{10}" placeholder="10 digit angka" required>
+                  <small class="text-muted">Masukkan 10 digit NIM (angka saja)</small>
                   @error('mahasiswa_nim')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
@@ -61,13 +62,14 @@
                 </div>
 
                 <div class="col-md-6">
-                  <label class="form-label">Status *</label>
+                  <label class="form-label">Status Proyek *</label>
                   <select name="status" class="form-control @error('status') is-invalid @enderror" required>
                     <option value="pending" {{ old('status', $proyek->status) == 'pending' ? 'selected' : '' }}>Pending</option>
                     <option value="on_progress" {{ old('status', $proyek->status) == 'on_progress' ? 'selected' : '' }}>On Progress</option>
                     <option value="completed" {{ old('status', $proyek->status) == 'completed' ? 'selected' : '' }}>Completed</option>
                     <option value="rejected" {{ old('status', $proyek->status) == 'rejected' ? 'selected' : '' }}>Rejected</option>
                   </select>
+                  <small class="text-muted">Hanya admin yang dapat mengubah status proyek</small>
                   @error('status')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
@@ -91,7 +93,8 @@
 
                 <div class="col-md-6">
                   <label class="form-label">Progress (%)</label>
-                  <input type="number" name="progress" class="form-control @error('progress') is-invalid @enderror" value="{{ old('progress', $proyek->progress) }}" min="0" max="100">
+                  <input type="number" name="progress" class="form-control @error('progress') is-invalid @enderror" value="{{ old('progress', $proyek->progress) }}" min="0" max="100" step="1">
+                  <small class="text-muted">Masukkan nilai 0-100. Hanya admin yang dapat mengubah progress proyek</small>
                   @error('progress')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
@@ -144,6 +147,12 @@
     </div>
     @include('layouts.footer-block')
     @include('layouts.footer-js')
+    <script>
+      // Hanya izinkan input angka untuk NIM
+      document.querySelector('input[name="mahasiswa_nim"]').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+      });
+    </script>
   </body>
 </html>
 

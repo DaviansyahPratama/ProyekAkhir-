@@ -14,6 +14,9 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <h5>Detail Proyek</h5>
             <div>
+              <a href="{{ route('admin.proyek.edit', $proyek) }}" class="btn btn-primary me-2">
+                <i data-feather="edit" class="me-1"></i> Edit Proyek
+              </a>
               <a href="{{ route('admin.proyek.index') }}" class="btn btn-secondary">Kembali</a>
             </div>
           </div>

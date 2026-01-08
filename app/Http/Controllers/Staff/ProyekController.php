@@ -55,7 +55,7 @@ class ProyekController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'mahasiswa_nim' => 'required|string|max:20',
+            'mahasiswa_nim' => 'required|string|max:10|min:10',
             'mahasiswa_nama' => 'required|string|max:255',
             'dosen_pembimbing' => 'required|string|max:255',
             'tanggal_mulai' => 'nullable|date',
@@ -132,12 +132,12 @@ class ProyekController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'mahasiswa_nim' => 'required|string|max:20',
+            'mahasiswa_nim' => 'required|string|max:10|min:10',
             'mahasiswa_nama' => 'required|string|max:255',
             'dosen_pembimbing' => 'required|string|max:255',
             'tanggal_mulai' => 'nullable|date',
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
-            // status & progress hanya bisa diubah admin
+            // status & progress TIDAK ada di sini karena hanya bisa diubah admin
             'catatan' => 'nullable|string',
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
             'file_lampiran.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',
@@ -165,8 +165,12 @@ class ProyekController extends Controller
             $validated['file_lampiran'] = $files;
         }
 
-        // Pastikan status & progress tidak berubah dari sisi mahasiswa
-        unset($validated['status'], $validated['progress']);
+        // KEAMANAN: Pastikan status & progress tidak berubah dari sisi staff
+        // Meskipun ada yang mencoba kirim data ini, akan diabaikan
+        if ($request->has('status') || $request->has('progress')) {
+            // Hapus dari validated untuk memastikan tidak ter-update
+            unset($validated['status'], $validated['progress']);
+        }
 
         $proyek->update($validated);
 

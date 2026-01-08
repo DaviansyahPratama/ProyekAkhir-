@@ -74,13 +74,13 @@ class ProyekController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'mahasiswa_nim' => 'required|string|max:20',
+            'mahasiswa_nim' => 'required|string|max:10|min:10',
             'mahasiswa_nama' => 'required|string|max:255',
             'dosen_pembimbing' => 'required|string|max:255',
-            'status' => 'required|in:pending,on_progress,completed,rejected',
+            'status' => 'required|in:pending,on_progress,completed,rejected', // Hanya admin yang bisa mengubah status
             'tanggal_mulai' => 'nullable|date',
             'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_mulai',
-            'progress' => 'nullable|integer|min:0|max:100',
+            'progress' => 'nullable|integer|min:0|max:100', // Hanya admin yang bisa mengubah progress
             'catatan' => 'nullable|string',
             'file_dokumen' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
             'file_lampiran.*' => 'nullable|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:10240',

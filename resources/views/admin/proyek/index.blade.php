@@ -101,7 +101,10 @@
                       </td>
                       <td>{{ $proyek->progress }}%</td>
                       <td>
-                        <a href="{{ route('admin.proyek.show', $proyek) }}" class="btn btn-sm btn-info">View</a>
+                        <div class="d-flex gap-2">
+                          <a href="{{ route('admin.proyek.show', $proyek) }}" class="btn btn-sm btn-info">View</a>
+                          <a href="{{ route('admin.proyek.edit', $proyek) }}" class="btn btn-sm btn-primary">Edit</a>
+                        </div>
                       </td>
                     </tr>
                   @empty

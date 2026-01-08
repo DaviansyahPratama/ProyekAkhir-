@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -37,7 +38,8 @@
 
                 <div class="col-md-6">
                   <label class="form-label">NIM Mahasiswa *</label>
-                  <input type="text" name="mahasiswa_nim" class="form-control @error('mahasiswa_nim') is-invalid @enderror" value="{{ old('mahasiswa_nim') }}" required>
+                  <input type="text" name="mahasiswa_nim" class="form-control @error('mahasiswa_nim') is-invalid @enderror" value="{{ old('mahasiswa_nim') }}" maxlength="10" pattern="[0-9]{10}" placeholder="10 digit angka" required>
+                  <small class="text-muted">Masukkan 10 digit NIM (angka saja)</small>
                   @error('mahasiswa_nim')
                     <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
@@ -132,6 +134,12 @@
     </div>
     @include('layouts.footer-block')
     @include('layouts.footer-js')
+    <script>
+      // Hanya izinkan input angka untuk NIM
+      document.querySelector('input[name="mahasiswa_nim"]').addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+      });
+    </script>
   </body>
 </html>
 
